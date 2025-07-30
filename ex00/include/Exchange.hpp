@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <map>
+#include <fstream>
+#include <cstring>
 
 #define DATA_PATH "../data/data.csv";
 
@@ -13,12 +15,10 @@ class Exchange {
   Exchange &operator=(const Exchange &src);
   ~Exchange();
 
-    // add Data/Input
-  Exchange(std::string input_path,);
+// add Data/Input
+  Exchange(std::string data_path);
 
   // function
-
-
 
   // 1 check data
   bool check_data();
@@ -28,6 +28,5 @@ class Exchange {
   void show();
 
  private:
-  std::map<std::string, int> _records;
-  std::map<std::string, int, int> _exchange_rate;
+  std::map<std::string, float> _records;
 };
