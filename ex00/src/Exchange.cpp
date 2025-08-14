@@ -12,14 +12,14 @@ Exchange &Exchange::operator=(const Exchange &src) {
   return *this;
 }
 
-Exchange::Exchange() {}
+Exchange::~Exchange() {}
 
 // other constructor
 Exchange::Exchange(std::string data_path) {
   std::ifstream fin;
 
   // open the data file
-  fin.open(data_path);
+  fin.open(data_path.c_str());
 
   std::string date, s_value;
 
