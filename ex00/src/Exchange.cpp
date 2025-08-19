@@ -28,7 +28,8 @@ Exchange::Exchange(std::string data_path) {
 
   // loop into the file
   while (std::getline(fin, date, ',') && std::getline(fin, s_value)) {
-    _records.insert({date, std::atof(s_value.c_str())});
+    _records.insert(
+        std::pair<std::string, float>(date, std::atof(s_value.c_str())));
   }
 
   // close the data file
@@ -38,15 +39,13 @@ Exchange::Exchange(std::string data_path) {
 // function
 
 void Exchange::show() {
-    std::map<std::string, float>::iterator it, ite;
+  std::map<std::string, float>::iterator it, ite;
 
-    it = _records.begin();
-    ite = _records.end();
+  it = _records.begin();
+  ite = _records.end();
 
-    while (it != ite)
-    {
-        std::cout << it->first << ", " << it->second << std::endl;
-        it++;
-    }
-    
+  while (it != ite) {
+    std::cout << it->first << ", " << it->second << std::endl;
+    it++;
+  }
 }

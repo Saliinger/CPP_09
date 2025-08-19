@@ -4,8 +4,9 @@
 #include <map>
 #include <fstream>
 #include <cstring>
+#include <cstdlib>
 
-#define DATA_PATH "../data/data.csv"
+#define DATA_PATH "./data/data.csv"
 
 class Exchange {
  public:
