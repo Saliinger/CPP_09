@@ -1,10 +1,11 @@
 #pragma once
 
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
 #include <iostream>
 #include <map>
-#include <fstream>
-#include <cstring>
-#include <cstdlib>
+#include <vector>
 
 #define DATA_PATH "./data/data.csv"
 
@@ -16,18 +17,14 @@ class Exchange {
   Exchange &operator=(const Exchange &src);
   ~Exchange();
 
-// add Data/Input
+  // add Data/Input
   Exchange(std::string data_path);
 
   // function
+  void complete(const std::string &file) const;
 
-  // 1 check data
-  bool check_data();
-  // 2 check input data
-  bool check_input();
-  // 3 make the output
   void show();
 
  private:
-  std::map<std::string, float> _records;
+  std::map<int, int, int, float> _records;
 };
