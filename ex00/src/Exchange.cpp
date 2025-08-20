@@ -28,13 +28,8 @@ Exchange::Exchange(std::string data_path) {
 
   // loop into the file
   while (std::getline(fin, date, ',') && std::getline(fin, s_value)) {
-    char year[5], month[3], day[3];
-
-    std::strncpy(year, date.c_str(), 4);
-    std::strncpy(month, date.c_str() + 5, 2);
-    std::strncpy(day, date.c_str() + 8, 2);
     _records.insert(
-        std::pair<int, int, int, float>(std::atoi(year), std::atoi(month), std::atoi(day), std::atof(s_value.c_str())));
+        std::pair<std::string, float>(date, std::atof(s_value.c_str())));
   }
 
   // close the data file

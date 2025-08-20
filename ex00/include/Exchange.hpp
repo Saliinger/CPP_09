@@ -26,5 +26,5 @@ class Exchange {
   void show();
 
  private:
-  std::map<int, int, int, float> _records;
+  std::map<std::string, float> _records;
 };
