@@ -23,64 +23,61 @@ RPN::~RPN() {}
 
 RPN::RPN(char **av) {
   for (size_t i = 1; av[i]; i++) {
-    if (std::atoi(av[i]))
-      _storage.push_back(std::atoi(av[i]));
-    else {
-      std::vector<int>::iterator ite = _storage.end();
-      int last = 0, new_last = 0;
-      switch (av[i][0]) {
+    std::string token = av[i];
+
+    if (token.length() == 1 &&
+        std::string("+-*/").find(token[0]) != std::string::npos) {
+      if (_storage.size() < 2)
+        throw std::runtime_error("Error: Not enough operands for operator");
+
+      int right = _storage.top();
+      _storage.pop();
+      int left = _storage.top();
+      _storage.pop();
+
+      switch (token[0]) {
         case '+':
-          last = *ite;
-          _storage.pop_back();
-          ite = _storage.end();
-          new_last = *ite;
-          _storage.pop_back();
-          _storage.push_back(new_last + last);
-          show(av[i][0]);
+          _storage.push(left + right);
           break;
 
         case '-':
-          last = *ite;
-          _storage.pop_back();
-          ite = _storage.end();
-          new_last = *ite;
-          _storage.pop_back();
-          _storage.push_back(new_last - last);
-          show(av[i][0]);
+          _storage.push(left - right);
           break;
 
         case '*':
-          last = *ite;
-          _storage.pop_back();
-          ite = _storage.end();
-          new_last = *ite;
-          _storage.pop_back();
-          _storage.push_back(new_last * last);
-          show(av[i][0]);
+          _storage.push(left * right);
           break;
 
         case '/':
-          last = *ite;
-          _storage.pop_back();
-          ite = _storage.end();
-          new_last = *ite;
-          _storage.pop_back();
-          _storage.push_back(new_last / last);
-          show(av[i][0]);
+          if (right == 0) throw std::runtime_error("Error: Division by zero");
+          _storage.push(left / right);
           break;
-      }
+            }
+      show(token[0]);
+    } else {
+      std::istringstream iss(token);
+      int num;
+
+      if (!(iss >> num) || !iss.eof())
+        throw std::runtime_error("Error: Invalid token");
+      else
+        _storage.push(num);
+      show(token[0]);
     }
   }
-  std::cout << *_storage.end() << std::endl;
+
+  if (_storage.size() != 1)
+    throw std::runtime_error("Error: Invalid expression");
+
+  std::cout << "RESULT: " << _storage.top() << std::endl;
 }
 
 void RPN::show(char c) const {
-  std::vector<int>::const_iterator it = _storage.cbegin(),
-                                   ite = _storage.cend();
+  std::stack<int> temp = _storage;
+  std::cout << "DEBUG: " << c << std::endl;
 
-  std::cout << "DEBUG: "<< c << std::endl;
-  while (it != ite) {
-    std::cout << *it << std::endl;
-    ++it;
+  while (!temp.empty()) {
+    std::cout << temp.top() << std::endl;
+    temp.pop();
   }
 }

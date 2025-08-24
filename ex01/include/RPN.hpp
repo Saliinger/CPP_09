@@ -1,7 +1,10 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
+#include <stack>
+#include <cstdlib>
+#include <sstream>
+#include <stdexcept>
 
 class RPN {
  public:
@@ -18,5 +21,5 @@ class RPN {
   void show(char c) const;
 
  private:
-  std::vector<int> _storage;
+  std::stack<int> _storage;
 };
