@@ -21,11 +21,12 @@ RPN::~RPN() {}
 
 // other constructor
 
-RPN::RPN(char **av) {
-    
-  for (size_t i = 1; av[i]; i++) {
-    std::string token = av[i];
+RPN::RPN(const std::string &line) {
+    std::istringstream iss(line);
+    std::string token;
 
+  while (iss >> token) {
+  
     if (token.length() == 1 &&
         std::string("+-*/").find(token[0]) != std::string::npos) {
       if (_storage.size() < 2)

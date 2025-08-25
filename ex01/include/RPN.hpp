@@ -15,7 +15,7 @@ class RPN {
   ~RPN();
 
   // other constructor
-  RPN(char **av);
+  RPN(const std::string &line);
 
   // debug
   void show(char c) const;
