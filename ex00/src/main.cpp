@@ -4,8 +4,12 @@ int main(int ac, char **av) {
   if (ac == 2) {
     (void)av;
     Exchange bitecoin(DATA_PATH);
-    bitecoin.show();
-    // new method to find closest prices and display in real time
+    try {
+      bitecoin.complete(av[1]);
+    } catch (std::exception &e) {
+      std::cerr << e.what() << std::endl;
+      return 1;
+    }
   }
   return 0;
 }

@@ -26,8 +26,6 @@ class Exchange {
   // function
   void complete(const std::string &file) const;
 
-  void show();
-
  private:
-  std::map<unsigned int, float> _records;
+  std::map<std::string, float> _records;
 };

@@ -1,13 +1,14 @@
 NAME = Bitecoin
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 SRCDIR = src
 INCDIR = include
 LIBDIR = lib
 
 SOURCES = $(SRCDIR)/main.cpp \
-			$(SRCDIR)/Exchange.cpp
+			$(SRCDIR)/Exchange.cpp \
+			$(SRCDIR)/utils.cpp
 
 
 OBJECTS = $(SOURCES:.cpp=.o)

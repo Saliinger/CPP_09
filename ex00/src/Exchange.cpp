@@ -28,15 +28,8 @@ Exchange::Exchange(std::string data_path) {
 
   // loop into the file
   while (std::getline(fin, date, ',') && std::getline(fin, s_value)) {
-    std::string year = date.substr(0, 4);
-    std::string month = date.substr(5, 2);
-    std::string day = date.substr(8, 2);
-    unsigned int date_int = std::atoi(year.c_str()) * 10000 +
-
-                            std::atoi(month.c_str()) * 100 +
-                            std::atoi(day.c_str());
     _records.insert(
-        std::pair<unsigned int, float>(date_int, std::atof(s_value.c_str())));
+        std::pair<std::string, float>(date, std::atof(s_value.c_str())));
   }
 
   // close the data file
@@ -46,52 +39,32 @@ Exchange::Exchange(std::string data_path) {
 // function
 
 void Exchange::complete(const std::string &file) const {
-  // read each line see if good then search closest price then display
   std::ifstream fin;
   std::string line, date, unit;
-
-  std::map<unsigned int, float>::const_iterator it, ite;
+  std::map<std::string, float>::const_iterator it, ite;
 
   it = _records.begin();
   ite = _records.end();
-
   fin.open(file.c_str());
 
   if (!fin.is_open()) throw std::runtime_error("Error: could not open file.");
 
-  while (std::getline(fin, line)) {
+  std::getline(fin, line);
+  while (std::getline(fin, date, '|') && std::getline(fin, unit)) {
     if (!check_format(line)) {
       std::cout << "Error: wrong format" << std::endl;
     } else if (!check_date(line)) {
       std::cout << "Error: wrong format" << std::endl;
     } else {
-      std::string year = date.substr(0, 4);
-      std::string month = date.substr(5, 2);
-      std::string day = date.substr(8, 2);
+      std::map<std::string, float>::const_iterator record_value =
+          _records.lower_bound(date);
 
-      unsigned int date_int = std::atoi(year.c_str()) * 10000 +
-                              std::atoi(month.c_str()) * 100 +
-                              std::atoi(day.c_str());
-
-      std::map<unsigned int, float>::const_iterator value =
-          _records.lower_bound(date_int);
-
-      // display: 2011-01-03 => 1.2 = 0.36
-      std::cout << value->first << " => " << value->second << " = "
-                << value->second * 1 << std::endl;
+      float num = std::atol(unit.c_str());
+      if (check_value(num))
+        // display: 2011-01-03 => 1.2 = 0.36
+        std::cout << record_value->first << " => " << record_value->second
+                  << " = " << record_value->second * num << std::endl;
     }
   }
   fin.close();
-}
-
-void Exchange::show() {
-  std::map<unsigned int, float>::iterator it, ite;
-
-  it = _records.begin();
-  ite = _records.end();
-
-  while (it != ite) {
-    std::cout << it->first << ", " << it->second << std::endl;
-    it++;
-  }
 }
