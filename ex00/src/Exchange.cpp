@@ -58,12 +58,12 @@ void Exchange::complete(const std::string &file) const {
     } else {
       std::map<std::string, float>::const_iterator record_value =
           _records.lower_bound(date);
-
-      float num = std::atol(unit.c_str());
+      // if (date != record_value->first) --record_value; // doesn't work
+      float num = std::atof(unit.c_str());
       if (check_value(num))
         // display: 2011-01-03 => 1.2 = 0.36
-        std::cout << record_value->first << " => " << record_value->second
-                  << " = " << record_value->second * num << std::endl;
+        std::cout << record_value->first << " => " << num << " = "
+                  << record_value->second * num << std::endl;
     }
   }
   fin.close();

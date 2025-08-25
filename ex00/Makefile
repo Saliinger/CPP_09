@@ -29,4 +29,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test: all
+		clear && valgrind --leak-check=full ./Bitecoin ./test/input.txt
+
+.PHONY: all clean fclean re test
