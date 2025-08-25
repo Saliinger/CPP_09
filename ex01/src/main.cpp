@@ -1,7 +1,7 @@
 #include "../include/RPN.hpp"
 
 int main(int ac, char **av) {
-//   for (size_t i = 1; av[i]; i++) std::cout << av[i] << std::endl;
+  for (size_t i = 1; av[i]; i++) std::cout << av[i] << std::endl;
   if (ac < 2) {
     std::cerr << "Usage: " << av[0] << " <RPN expression>" << std::endl;
     return 1;

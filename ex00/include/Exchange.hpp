@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <limits>
 
 #define DATA_PATH "./data/data.csv"
 
@@ -26,5 +27,5 @@ class Exchange {
   void show();
 
  private:
-  std::map<std::string, float> _records;
+  std::map<unsigned int, float> _records;
 };
