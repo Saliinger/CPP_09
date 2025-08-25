@@ -51,7 +51,11 @@ void Exchange::complete(const std::string &file) const {
 
   std::getline(fin, line);
 
-  while (std::getline(fin, date, '|') && std::getline(fin, unit)) {
+  while (std::getline(fin, line)) {
+    std::istringstream iss(line);
+    std::getline(iss, date, '|');
+    std::getline(iss, unit);
+
     if (unit.empty()) {
       std::cout << "Error: bad input => " << date << std::endl;
     } else if (!check_date(date)) {
@@ -61,8 +65,7 @@ void Exchange::complete(const std::string &file) const {
           _records.lower_bound(date);
       float num = std::atof(unit.c_str());
       if (check_value(num)) {
-        while (record_value->first > date)
-          --record_value;
+        while (record_value->first > date) --record_value;
         std::cout << record_value->first << " => " << num << " = "
                   << record_value->second * num << std::endl;
       }

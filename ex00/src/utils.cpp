@@ -12,6 +12,7 @@ bool check_date(const std::string line) {
   month = std::atoi(line.substr(5, 7).c_str());
   day = std::atoi(line.substr(8, 10).c_str());
 
+  if (year > 2025) return false;
 
   if (month < 1 || month > 12) return false;
 
