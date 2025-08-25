@@ -50,20 +50,22 @@ void Exchange::complete(const std::string &file) const {
   if (!fin.is_open()) throw std::runtime_error("Error: could not open file.");
 
   std::getline(fin, line);
+
   while (std::getline(fin, date, '|') && std::getline(fin, unit)) {
-    if (!check_format(line)) {
-      std::cout << "Error: wrong format" << std::endl;
-    } else if (!check_date(line)) {
-      std::cout << "Error: wrong format" << std::endl;
+    if (unit.empty()) {
+      std::cout << "Error: bad input => " << date << std::endl;
+    } else if (!check_date(date)) {
+      std::cout << "Error: bad input => " << date << std::endl;
     } else {
       std::map<std::string, float>::const_iterator record_value =
           _records.lower_bound(date);
-      // if (date != record_value->first) --record_value; // doesn't work
       float num = std::atof(unit.c_str());
-      if (check_value(num))
-        // display: 2011-01-03 => 1.2 = 0.36
+      if (check_value(num)) {
+        while (record_value->first > date)
+          --record_value;
         std::cout << record_value->first << " => " << num << " = "
                   << record_value->second * num << std::endl;
+      }
     }
   }
   fin.close();
