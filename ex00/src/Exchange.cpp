@@ -60,18 +60,26 @@ void Exchange::complete(const std::string &file) const {
   if (!fin.is_open()) throw std::runtime_error("Error: could not open file.");
 
   while (std::getline(fin, line)) {
-    std::string year = date.substr(0, 4);
-    std::string month = date.substr(5, 2);
-    std::string day = date.substr(8, 2);
+    if (!check_format(line)) {
+      std::cout << "Error: wrong format" << std::endl;
+    } else if (!check_date(line)) {
+      std::cout << "Error: wrong format" << std::endl;
+    } else {
+      std::string year = date.substr(0, 4);
+      std::string month = date.substr(5, 2);
+      std::string day = date.substr(8, 2);
 
-    unsigned int date_int = std::atoi(year.c_str()) * 10000 +
-                            std::atoi(month.c_str()) * 100 +
-                            std::atoi(day.c_str());
+      unsigned int date_int = std::atoi(year.c_str()) * 10000 +
+                              std::atoi(month.c_str()) * 100 +
+                              std::atoi(day.c_str());
 
-  
-    // check date
-    check_date(line);
-    // check value
+      std::map<unsigned int, float>::const_iterator value =
+          _records.lower_bound(date_int);
+
+      // display: 2011-01-03 => 1.2 = 0.36
+      std::cout << value->first << " => " << value->second << " = "
+                << value->second * 1 << std::endl;
+    }
   }
   fin.close();
 }

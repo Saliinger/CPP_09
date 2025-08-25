@@ -8,6 +8,8 @@
 #include <vector>
 #include <limits>
 
+#include "utils.hpp"
+
 #define DATA_PATH "./data/data.csv"
 
 class Exchange {
