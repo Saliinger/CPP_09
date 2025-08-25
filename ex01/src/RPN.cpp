@@ -22,6 +22,7 @@ RPN::~RPN() {}
 // other constructor
 
 RPN::RPN(char **av) {
+    
   for (size_t i = 1; av[i]; i++) {
     std::string token = av[i];
 
@@ -52,14 +53,15 @@ RPN::RPN(char **av) {
           if (right == 0) throw std::runtime_error("Error: Division by zero");
           _storage.push(left / right);
           break;
-            }
+      }
       show(token[0]);
     } else {
       std::istringstream iss(token);
       int num;
 
-      if (!(iss >> num) || !iss.eof())
-        throw std::runtime_error("Error: Invalid token");
+      if (!(iss >> num) || !iss.eof()){
+        std::cout << "error: " << token[0] << std::endl;
+        throw std::runtime_error("Error: Invalid token");}
       else
         _storage.push(num);
       show(token[0]);
