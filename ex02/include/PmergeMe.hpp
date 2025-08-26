@@ -6,6 +6,7 @@
 
 class PmergeMe {
  public:
+  // orthodox cannonical form
   PmergeMe();
   PmergeMe(const PmergeMe &src);
   PmergeMe &operator=(const PmergeMe &src);
