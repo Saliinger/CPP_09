@@ -12,6 +12,9 @@ class PmergeMe {
   PmergeMe &operator=(const PmergeMe &src);
   ~PmergeMe();
 
+  // helper
+  bool isValidInt(const char *s);
+
   // function
   void run(int ac, char **av);
 
