@@ -21,8 +21,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
 
 PmergeMe::~PmergeMe() {}
 
-// other constructor
-
-// PmergeMe::PmergeMe()
-
 // function
+void PmergeMe::run(int ac, char **av) {
+
+}

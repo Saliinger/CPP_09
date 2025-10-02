@@ -12,6 +12,9 @@ class PmergeMe {
   PmergeMe &operator=(const PmergeMe &src);
   ~PmergeMe();
 
+  // function
+  void run(int ac, char **av);
+
  private:
   std::vector<int> _stack_1;
   std::deque<int> _stack_2;
