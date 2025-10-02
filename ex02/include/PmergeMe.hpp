@@ -14,6 +14,8 @@ class PmergeMe {
 
   // helper
   bool isValidInt(const char *s);
+  void print(std::vector<int> stack);
+  void print(std::deque<int> stack);
 
   // function
   void run(int ac, char **av);

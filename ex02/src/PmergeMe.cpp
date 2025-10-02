@@ -32,6 +32,26 @@ bool PmergeMe::isValidInt(const char *s) {
   return true;
 }
 
+void PmergeMe::print(std::vector<int> stack) {
+  std::vector<int>::iterator it = stack.begin();
+  std::vector<int>::iterator ite = stack.end();
+
+  while (it != ite) {
+    std::cout << *it << std::endl;
+    it++;
+  }
+}
+
+void PmergeMe::print(std::deque<int> stack) {
+  std::deque<int>::iterator it = stack.begin();
+  std::deque<int>::iterator ite = stack.end();
+
+  while (it != ite) {
+    std::cout << *it << std::endl;
+    it++;
+  }
+}
+
 // function
 void PmergeMe::run(int ac, char **av) {
   std::vector<int> initial_thing;
@@ -43,6 +63,16 @@ void PmergeMe::run(int ac, char **av) {
   }
 
   // before
-  
+
+  // vector
+  this->_stack_1 = initial_thing;
+  PmergeMe::print(this->_stack_1);
+
+  // deque
+  this->_stack_2 = initial_thing;
+  PmergeMe::print(this->_stack_2);
+
   // after
+  PmergeMe::print(this->_stack_1);
+  PmergeMe::print(this->_stack_2);
 }
